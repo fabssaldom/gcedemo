@@ -1,4 +1,0 @@
-provider "google" {
-  project     = "fsalaman-sanbox"
-  region      = "us-central1"
-}
