@@ -4,7 +4,7 @@ module "net" {
 }
 
 module "vm" {
-  source     = "./modules/vms"
-  subnetwork = module.net.subnet_id
-  vmname = "fabstfvm1"
+  source    = "./modules/vms"
+  subnet_id = module.net.subnet_id
+  vmname    = "fabstfvm1"
 }

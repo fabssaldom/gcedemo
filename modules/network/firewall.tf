@@ -1,6 +1,7 @@
 resource "google_compute_firewall" "firewall1" {
   name    = "test-firewall"
   network = google_compute_network.vpc1.name
+  project = var.project
 
   allow {
     protocol = "icmp"
