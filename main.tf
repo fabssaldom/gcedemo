@@ -1,29 +1,25 @@
 resource "google_compute_instance" "centos8vm1" {
-  name         = "centos8vm1"
-  machine_type = "e2-medium"
-  zone         = "us-central1-a"
-  project      = "fsalaman-sanbox"
+  name         = var.vmname
+  machine_type = "g1-small"
+  zone         = var.zone
+  project      = var.project
 
-  tags = ["name", "centos8vm1"]
+  tags = ["web", "linux"]
 
   boot_disk {
     initialize_params {
-      image = "centos-stream-8-v20211214"
+      image = var.imagename
     }
   }
 
   network_interface {
-    network    = "fabsvpc1"
-    subnetwork = google_compute_subnetwork.fabsv1sn3.id
-
-    access_config {
-      // Ephemeral public IP
-    }
+    network    = var.vpcname
+    subnetwork = google_compute_subnetwork.subnet1.id
   }
 
   metadata = {
-    foo = "bar"
+    name = var.vmname
   }
 
-  metadata_startup_script = "sudo dnf -y upgrade && sudo dnf -y install git neofetch tmux curl wget python3-pip epel-release"
+  metadata_startup_script = "sudo dnf -y upgrade ; sudo dnf -y install vim git neofetch tmux curl wget python3-pip epel-release"
 }
